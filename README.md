@@ -1,2 +1,2 @@
-# RST_Invoice_Automatio
+# RST_Invoice_Automation
 An  Excel Based Invoice Generation System
