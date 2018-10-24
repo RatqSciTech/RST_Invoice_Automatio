@@ -1,0 +1,11 @@
+Sub Generate_ID()
+'
+' Generate_ID Macro
+' Generate New Invoice ID
+'
+
+'
+   Dim LR As Long
+LR = Range("B" & Rows.Count).End(xlUp).Row
+Range("B" & LR).Resize(, 1).AutoFill Destination:=Range("B" & LR).Resize(2, 1)
+End Sub
