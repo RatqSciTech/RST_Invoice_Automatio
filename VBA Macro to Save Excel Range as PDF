@@ -1,0 +1,25 @@
+Sub PrintasPDF()
+Dim saveTo
+Dim invcID
+Dim pdfFileName
+Dim custName
+Dim paymentStatus
+Dim answer As Integer
+custName = Sheets("Invoice_Template").Cells(9, 5).Value()
+saveTo = Sheets("Invoice_Template").Cells(6, 2).Value()
+invcID = Sheets("Invoice_Template").Cells(6, 5).Value()
+paymentStatus = Sheets("Invoice_Template").Cells(28, 7).Value()
+pdfFileName = saveTo & "\" & invcID & ".pdf"
+
+If Dir(pdfFileName) = "" Then
+Sheets("Invoice_Template").Range("D1:G32").ExportAsFixedFormat Type:=xlTypePDF, Filename:=pdfFileName, Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas:=True, OpenAfterPublish:=False
+MsgBox "Invoice " & invcID & " generated for " & custName
+Else
+answer = MsgBox("Invoice already Exits.Do you want to re-generate?", vbYesNo, "Confirm Re-generation")
+If answer = vbYes Then
+Sheets("Invoice_Template").Range("D1:G32").ExportAsFixedFormat Type:=xlTypePDF, Filename:=pdfFileName, Quality:=xlQualityStandard, IncludeDocProperties:=True, IgnorePrintAreas:=True, OpenAfterPublish:=False
+MsgBox "Invoice " & invcID & " re-generated for " & custName
+End If
+End If
+
+End Sub
