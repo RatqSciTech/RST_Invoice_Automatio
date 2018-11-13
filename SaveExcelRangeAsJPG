@@ -1,0 +1,27 @@
+Sub PrintToImage()
+Dim Rng As Range, Fn As String
+Set Rng = Range("B5:F5")
+Fn = Sheets("Qode").Cells(10, 1).Value()
+SaveRngAsJPG Rng, Fn
+End Sub
+
+
+Private Sub SaveRngAsJPG(Rng As Range, FileName As String)
+Dim Cht As Chart, bScreen As Boolean, Shp As Shape
+bScreen = Application.ScreenUpdating
+Application.ScreenUpdating = False
+Set Cht = Workbooks.Add(xlChart).Charts(1)
+Cht.ChartArea.Clear
+Rng.CopyPicture xlScreen, xlPicture
+Cht.Paste
+With Cht.Shapes(1)
+.Left = 0
+.Top = 0
+.Width = Cht.ChartArea.Width
+.Height = Cht.ChartArea.Height
+End With
+Cht.Export FileName, "JPEG", False
+Cht.Parent.Close False
+Application.ScreenUpdating = bScreen
+MsgBox "Image Generated"
+End Sub
